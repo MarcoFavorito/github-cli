@@ -1,56 +1,70 @@
 import cmd
 import api
-
-
-COMMANDS = {
-    # "ls" : api.list_user_repos,
-#    "mkdir": api.create_user_repo
-}
-
-
+import argparse
 
 class GithubCmd(cmd.Cmd):
 
-    def do_ls(self, username):
-        """
-        ls username
+    def do_ls(self, line):
+        """ls username
         List public repositories of the user with `username`.
         """
-        if not username:
-            self.default("")
-        else:
-            json_res = api.get_users_repos(username)
-            repos_full_names = [x["full_name"] for x in json_res]
-            print("\n".join(repos_full_names))
+        parser = argparse.ArgumentParser(prog="ls")
+        parser.add_argument('username', type=str, help='the Github username')
 
-    def do_mkdir(self, username = "", name = "", description = "", is_private = False):
-        json_post = {}
+        args = parser.parse_args(line.strip().split())
+
+        json_res = api.get_users_repos(args.username)
+        repos_full_names = [x["full_name"] for x in json_res]
+        print("\n".join(repos_full_names))
+
+    def do_mkdir(self, line):
+        """mkdir --user username --name repo_name [--desc description] [--private]
+        """
+        parser = argparse.ArgumentParser(prog="mkdir")
+        parser.add_argument('username',    type=str, help='the Github username')
+        parser.add_argument('name',        type=str, help='the new repo name')
+        parser.add_argument('--desc', dest='description', type=str, help='the repo description', default="")
+        parser.add_argument('--private', dest='private',
+                            action='store_const',
+                            const=True, default=False, help='use this flag if you want a private repo')
+
+        args = parser.parse_args(line.strip().split())
+
+
         # username, name, description, is_private = line.strip().split()
-        if not username:
-            username = input("username:")
-        if not name:
-            json_post["name"] = input("repository name:")
-        if not description:
-            json_post["description"] = input("description:")
-        if not is_private:
-            is_private = input("is private? [y/N]:")
-            json_post["private"] = True if is_private.lower()=="y" else False
-            json_post["private"] = str(json_post["private"]).lower()
+        # if args.username is None:
+        #     args.username = input("username:")
+        # if args.name is None:
+        #     args.name = input("repository name:")
+        # if args.description is None:
+        #     args.description = input("description:")
 
-        print(json_post)
-        res = api.post_user_repos(username, json_post)
+        print(args)
+        data = {
+            "name"          :args.name,
+            "description"   :args.description,
+            "private"       :args.private,
+
+        }
+
+        res = api.post_user_repos(args.username, data)
         print(res)
 
-    def do_rmdir(self, username = "", name = ""):
-        if not username:
-            username = input("username:")
-        if not name:
-            name = input("repository name:")
-        res = api.delete_user_repo(username, name)
+    def do_rmdir(self, line):
+        """
+        rmdir [--user username] [--name repo_name]
+        """
+
+        parser = argparse.ArgumentParser(prog="rmdir")
+        parser.add_argument('username', type=str, help='the Github username')
+        parser.add_argument('name', type=str, help='the new repo name')
+        args = parser.parse_args(line.strip().split())
+
+        res = api.delete_user_repo(args.username, args.name)
 
 
-    def do_EOF(self, line):
-        return True
+    # def do_EOF(self, line):
+    #     return True
 
     def do_quit(self, line):
         """

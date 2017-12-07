@@ -1,4 +1,5 @@
 import requests
+import json
 from utils import formatter as f
 import getpass
 
@@ -16,7 +17,7 @@ def get_users_repos(username):
 
 def post_user_repos(username, data):
     password = getpass.getpass()
-    res = requests.post(f("{API_URL}/{USER}/{REPOS}"), json=data, auth=(username, password))
+    res = requests.post(f("{API_URL}/{USER}/{REPOS}"), data=json.dumps(data), auth=(username, password))
     json_res = res.json()
     return json_res
 
