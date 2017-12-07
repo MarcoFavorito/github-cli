@@ -2,6 +2,8 @@
 CONFIG = {
         "API_URL" : "https://api.github.com",
         "USERS" : "users",
-        "REPOS" : "repos"
-}   
+        "USER" : "user",
+        "REPOS" : "repos",
+        "REPO" : "repo",
+}
 
