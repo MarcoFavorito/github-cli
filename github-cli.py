@@ -11,12 +11,13 @@ import cli
 
 def main():
     command_parser = cli.GithubCmd()
+    print(sys.argv)
     cmd = sys.argv[1].strip()
     if (cmd=="shell"):
         command_parser.cmdloop()
     # elif (hasattr(command_parser, "do_" + cmd)):
     else:
-        line = " ".join(sys.argv[1:])
+        line = " ".join([x if not " " in x else '"' + x + '"' for x in sys.argv[1:]])
         res = command_parser.onecmd(line)
         if res: print(res)
         return

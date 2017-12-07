@@ -1,6 +1,8 @@
+import sys
 import cmd
 import api
 import argparse
+import shlex
 
 class GithubCmd(cmd.Cmd):
 
@@ -11,7 +13,7 @@ class GithubCmd(cmd.Cmd):
         parser = argparse.ArgumentParser(prog="ls")
         parser.add_argument('username', type=str, help='the Github username')
 
-        args = parser.parse_args(line.strip().split())
+        args = parser.parse_args(shlex.split(line.strip()))
 
         json_res = api.get_users_repos(args.username)
         repos_full_names = [x["full_name"] for x in json_res]
@@ -28,7 +30,7 @@ class GithubCmd(cmd.Cmd):
                             action='store_const',
                             const=True, default=False, help='use this flag if you want a private repo')
 
-        args = parser.parse_args(line.strip().split())
+        args = parser.parse_args(shlex.split(line.strip()))
 
 
         # username, name, description, is_private = line.strip().split()
@@ -51,14 +53,14 @@ class GithubCmd(cmd.Cmd):
         print(res)
 
     def do_rmdir(self, line):
-        """
-        rmdir [--user username] [--name repo_name]
+        """rmdir [--user username] [--name repo_name]
         """
 
         parser = argparse.ArgumentParser(prog="rmdir")
         parser.add_argument('username', type=str, help='the Github username')
         parser.add_argument('name', type=str, help='the new repo name')
-        args = parser.parse_args(line.strip().split())
+
+        args = parser.parse_args(shlex.split(line.strip()))
 
         res = api.delete_user_repo(args.username, args.name)
 

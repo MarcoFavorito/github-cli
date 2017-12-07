@@ -22,13 +22,13 @@ Any contribution/suggestion is really welcome.
     
 - create your repo:
 
-        >mkdir
+        >mkdir MarcoFavorito hello-world --desc "hello world!" --private
         
-then, an interactive session asks you all the data and asks you the password.
+then, an interactive session asks you the password.
 
 - remove a repo
 
-        >rmdir
+        >rmdir MarcoFavorito hello-world
 
 ## WAIVER, DISCLAIMER & RELEASE OF LIABILITY
 I hereby declare that I will not be liable for any improper use of this software, especially regarding to [Github API terms](https://help.github.com/articles/github-terms-of-service/#h-api-terms) and [GitHub Privacy Statement](https://help.github.com/articles/github-privacy-statement/).
