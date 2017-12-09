@@ -1,5 +1,5 @@
 
-CONFIG = {
+GITHUB_CONFIG = {
         "API_URL" : "https://api.github.com",
         "USERS" : "users",
         "USER" : "user",
@@ -7,3 +7,5 @@ CONFIG = {
         "REPO" : "repo",
 }
 
+
+VERBOSE = False

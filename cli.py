@@ -1,15 +1,17 @@
-import sys
 import cmd
 import api
 import argparse
 import shlex
+import utils as u
 
 class GithubCmd(cmd.Cmd):
 
+    def do_help(self, arg):
+        'List available commands with "help" or detailed help with "help cmd".'
+        super(GithubCmd, self).do_help(arg)
+
     def do_ls(self, line):
-        """ls username
-        List public repositories of the user with `username`.
-        """
+        """ls USERNAME      List public repositories of the user with `username`."""
         parser = argparse.ArgumentParser(prog="ls")
         parser.add_argument('username', type=str, help='the Github username')
 
@@ -20,8 +22,7 @@ class GithubCmd(cmd.Cmd):
         print("\n".join(repos_full_names))
 
     def do_mkdir(self, line):
-        """mkdir --user username --name repo_name [--desc description] [--private]
-        """
+        """mkdir --user username --name repo_name [--desc description] [--private]      """
         parser = argparse.ArgumentParser(prog="mkdir")
         parser.add_argument('username',    type=str, help='the Github username')
         parser.add_argument('name',        type=str, help='the new repo name')
@@ -32,16 +33,8 @@ class GithubCmd(cmd.Cmd):
 
         args = parser.parse_args(shlex.split(line.strip()))
 
+        u.get_logger().info(args)
 
-        # username, name, description, is_private = line.strip().split()
-        # if args.username is None:
-        #     args.username = input("username:")
-        # if args.name is None:
-        #     args.name = input("repository name:")
-        # if args.description is None:
-        #     args.description = input("description:")
-
-        print(args)
         data = {
             "name"          :args.name,
             "description"   :args.description,
@@ -55,7 +48,6 @@ class GithubCmd(cmd.Cmd):
     def do_rmdir(self, line):
         """rmdir [--user username] [--name repo_name]
         """
-
         parser = argparse.ArgumentParser(prog="rmdir")
         parser.add_argument('username', type=str, help='the Github username')
         parser.add_argument('name', type=str, help='the new repo name')
@@ -69,9 +61,7 @@ class GithubCmd(cmd.Cmd):
     #     return True
 
     def do_quit(self, line):
-        """
-        quit
-        exit the shell.
+        """quit     exit the shell.
         """
         return True
 
