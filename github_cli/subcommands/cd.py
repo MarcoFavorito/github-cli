@@ -21,7 +21,6 @@ class CdSubcommand(Subcommand):
         input_path_string = arg["<dirpath>"]
         context_path = self.context.curpath
         absolute_path = _extract_absolute_path(input_path_string, context_path)
-        print("cd processing ", absolute_path)
         return self._do_cd_absolute_path(absolute_path)
 
     def _do_cd_absolute_path(self, absolute_path):

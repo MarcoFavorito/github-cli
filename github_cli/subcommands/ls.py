@@ -14,7 +14,6 @@ class LsSubcommand(Subcommand):
     def execute_from_dirpath(self, dirpath):
         context_path = self.context.curpath
         absolute_path = _extract_absolute_path(dirpath, context_path)
-        print("ls processing ", absolute_path)
         return self._do_ls_absolute_path(absolute_path)
 
     def _do_ls_absolute_path(self, absolute_path:Path):
