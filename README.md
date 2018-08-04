@@ -41,17 +41,15 @@ You can also run single commands without starting a shell.
 
 - create your repo:
 
-      $ mkdir Your_Username hello-world --desc "hello world!" --private
+      $ mkdir Your_Username/hello-world
         
-then, an interactive session asks you the password.
-
 - remove a repo
 
-       $ rmdir Your_Username hello-world
+       $ rmdir Your_Username/hello-world
        
 - copy files/folders in the local filesystem:
 
-       $ cp Your_Username/hello-world/README.md ./hello-world-readme.md
+       $ cp Your_Username/hello-world/subdirectory ./hello-world/local_subdirectory
 
 ## License
 The software is released under MIT license. 
