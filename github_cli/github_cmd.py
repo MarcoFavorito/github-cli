@@ -1,8 +1,8 @@
 import cmd
 from github import Github
 
-from github_cli.base.Context import Context
-from github_cli.base.Subcommand import doc_command
+from github_cli.core import Context
+from github_cli.core import doc_command
 from github_cli.subcommands.cd import CdSubcommand
 from github_cli.subcommands.cp import CpSubcommand
 from github_cli.subcommands.get_token import GetTokenSubcommand
@@ -76,3 +76,4 @@ class GitHubCmd(cmd.Cmd):
         """Quits out of Interactive Mode."""
         print('Quitting...')
         exit()
+

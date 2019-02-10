@@ -1,8 +1,6 @@
 import getpass
 import logging
 
-from github_cli.base.Path import Path
-
 _LOGGER = None
 
 def get_logger()->logging.Logger:
@@ -36,7 +34,8 @@ def _extract_absolute_path(input_path, context_path):
     if input_path is None:
         absolute_path = context_path
     else:
-        input_path = Path(input_path)
+        input_path = ""
+#         input_path = Path(input_path)
         absolute_path = input_path if input_path.is_absolute() else _make_full_path(context_path, input_path)
 
     return absolute_path
@@ -47,7 +46,8 @@ def _make_full_path(context, path):
         actual_path = path
     else:
         separator = "/" if not context.is_root() else ""
-        actual_path = Path(str(context) + separator + str(path))
+#         actual_path = Path(str(context) + separator + str(path))
+        actual_path = ""
 
     return actual_path
 
@@ -58,3 +58,4 @@ def is_valid_token(token_str):
 def ask_password():
     password = getpass.getpass("Password: ")
     return password
+

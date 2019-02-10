@@ -1,31 +1,18 @@
-"""GitHub CLI - Command line interface for interact with GitHub
-Usage:
-  github_cli <command> [<args>...]
-  github_cli (-i | --interactive)
+# -*- coding utf-8 -*-
 
-Options:
-  -h --help     Show this screen.
-  --version     Show version.
-
-Available Commands:
-  ls            List files in a directory
-  cd            Change directory
-"""
 from sys import argv
 
-from docopt import docopt
-
+import argparse
 from github_cli.github_cmd import GitHubCmd
 
+parser = argparse.ArgumentParser(prog="github-cli", add_help=True)
+
 def main():
-    arguments = docopt(__doc__, version='0.0.1', options_first=True)
-
+    arguments = parser.parse_args() 
     cmd = GitHubCmd()
-    if arguments['-i'] or arguments['--interactive']:
-        cmd.cmdloop()
-    else:
-        cmd.onecmd(" ".join(argv[1:]))
-
+    cmd.cmdloop()
+#     cmd.onecmd(" ".join(argv[1:]))
 
 if __name__ == '__main__':
     main()
+

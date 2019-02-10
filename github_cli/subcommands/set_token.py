@@ -3,8 +3,8 @@ import getpass
 import svn.remote
 from github import Github
 
-from github_cli.base.Path import Path
-from github_cli.base.Subcommand import Subcommand
+from github_cli.core import Path
+from github_cli.core import Subcommand
 from github_cli.utils import _extract_absolute_path, is_valid_token, get_logger
 import svn.remote
 

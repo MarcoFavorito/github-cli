@@ -1,7 +1,7 @@
 from github import Github
 
-from github_cli.base.Path import Path
-from github_cli.base.Subcommand import Subcommand
+from github_cli.core import Path
+from github_cli.core import Subcommand
 from github_cli.utils import ask_password, get_logger
 
 
